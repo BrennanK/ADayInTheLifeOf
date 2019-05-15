@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CIP
+  - Interactable
   layers:
   - Default
   - TransparentFX
@@ -17,14 +19,14 @@ TagManager:
   - Building
   - Prop
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground Floor
+  - Ground Walls
+  - Second level floors
+  - Second level Walls
+  - Roof
+  - Upstairs Props
+  - Kitchen Props
+  - Bedroom Props
   - 
   - 
   - 
@@ -38,6 +40,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Interacted
+    uniqueID: 3230885809
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 3290480879
     locked: 0

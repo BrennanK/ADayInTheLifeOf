@@ -6,7 +6,10 @@ using UnityEngine;
  * 
  * Purpose: Player Movement 
  *          Camera rotation
- *          
+ *  
+ * NOTE: CAMERA DOESNT LOCK PITCH ROTATION
+ * 
+ * 
  * Chopped together code for player movement and camera rotation.
  * Player rotation is done by spinning the whole player model 
  * Requires camera to be child of player object
@@ -16,13 +19,15 @@ public class PlayerMovement : MonoBehaviour
     CharacterController myCharController;
     Camera myCamera;
 
-    float speed;
-    float mouseXSen;
-    float mouseYSen;
+    public float speed;
+    public float mouseXSen;
+    public float mouseYSen;
 
     Vector3 moveDir;
     Vector3 bodyXRot;
     Vector3 cameraPitch;
+
+    public bool canMove;
 
     // Start is called before the first frame update
     void Start()
@@ -37,25 +42,29 @@ public class PlayerMovement : MonoBehaviour
         //numbers for sensitivity settings
         mouseXSen = 1f;
         mouseYSen = 1f;
+
+        canMove = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (canMove)
+        {
+            //gather all variable data
+            bodyXRot = new Vector3(0, Input.GetAxis("Mouse X") * mouseXSen, 0);
+            cameraPitch = new Vector3(-Input.GetAxis("Mouse Y") * mouseYSen, 0, 0);
+            moveDir = new Vector3(Input.GetAxis("Horizontal") * speed, -9.81f, Input.GetAxis("Vertical") * speed);
 
-        //gather all variable data
-        bodyXRot = new Vector3(0, Input.GetAxis("Mouse X") * mouseXSen, 0);
-        cameraPitch = new Vector3(-Input.GetAxis("Mouse Y") * mouseYSen, 0, 0);
-        moveDir = new Vector3(Input.GetAxis("Horizontal") * speed, -9.81f, Input.GetAxis("Vertical") * speed);
+            //Assign all variables
+            //rotates the players whole body
+            transform.Rotate(bodyXRot);
+            //rotates the camera around the X axis for up and down movement 
+            myCamera.transform.Rotate(cameraPitch);
+            //moves character based on WASD and a manual Gravity setting
+            myCharController.Move(transform.TransformDirection(moveDir));
+        }
 
-        //Assign all variables
-        //rotates the players whole body
-        transform.Rotate(bodyXRot);
-        //rotates the camera around the X axis for up and down movement 
-        myCamera.transform.Rotate(cameraPitch);
-        //moves character based on WASD and a manual Gravity setting
-        myCharController.Move(transform.TransformDirection(moveDir));
     }
     
 }
