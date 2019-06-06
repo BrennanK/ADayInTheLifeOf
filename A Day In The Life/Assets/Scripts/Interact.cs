@@ -15,7 +15,7 @@ public class Interact : MonoBehaviour
     public Transform cameraHome;
     //Used to look for camera inspection point on an interactable object
     Transform[] childTransforms;
-    //Sore camera target location
+    //Store camera target location
     Transform cameraTarget;
     //Main camera player uses
     Camera worldCamera;
@@ -54,6 +54,10 @@ public class Interact : MonoBehaviour
                     {
                         if (temp.CompareTag("CIP"))
                         {
+                            if (temp.GetComponentInParent<InteractiveGlow>())
+                            {
+                                temp.GetComponentInParent<InteractiveGlow>().ShutOffGlow();
+                            }
                             cameraTarget = temp;
                             playerMoveRef.canMove = false;
                         }
