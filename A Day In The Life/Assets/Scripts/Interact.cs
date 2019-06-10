@@ -24,6 +24,8 @@ public class Interact : MonoBehaviour
     //Logic for when player is done interacting
     bool moveCameraBack;
 
+    InteractiveText logBookRef;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +60,11 @@ public class Interact : MonoBehaviour
                             {
                                 temp.GetComponentInParent<InteractiveGlow>().ShutOffGlow();
                             }
+                            if (temp.GetComponentInParent<InteractiveText>())
+                            {
+                                logBookRef = temp.GetComponentInParent<InteractiveText>();
+                                logBookRef.Interacted(temp.GetComponentInParent<InteractiveText>().name);
+                            }
                             cameraTarget = temp;
                             playerMoveRef.canMove = false;
                         }
@@ -70,6 +77,8 @@ public class Interact : MonoBehaviour
         {
             cameraTarget = null;
             moveCameraBack = true;
+            logBookRef.StopInteration();
+            logBookRef = null;
         }
 
         //Moves camera back to the face position
