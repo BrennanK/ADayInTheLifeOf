@@ -7,29 +7,21 @@ public class InteractiveText : MonoBehaviour
 {
     public Text itemInformation;
     public GameObject logBook;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     public void StopInteration()
     {
+        //called from Interact when unselecting an item. 
         logBook.SetActive(false);
     }
 
+    //brings in the Name of the item and looks for it in the list of stuff. 
     public void Interacted(string objectName)
     {
         logBook.SetActive(true);
         switch (objectName)
         {
+            //Case must match the name of the object that has the interactive glow script. 
             case "Andrew Jackson":
                 itemInformation.text = "Andrew Jackson: Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
                     "Etiam tempus, arcu et maximus tempor, eros orci sodales purus, vitae rhoncus ante tortor quis odio. \n\n " +
